@@ -18,5 +18,4 @@ model Link {
   updatedAt DateTime @updatedAt
   shortcode String   @db.VarChar(255)
   url       String   @db.VarChar(255)
-  clicks    BigInt   @default(0)
 }
