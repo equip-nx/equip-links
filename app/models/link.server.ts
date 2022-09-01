@@ -8,17 +8,20 @@ type NewLink = {
   shortcode: string;
 };
 
-export async function findLink(id: string | null): Promise<Link | null> {
-  if (id) {
-    // @ts-ignore
-    if (isNaN(id)) {
-      return null;
-    }
+export async function findLink(shortcode: string): Promise<Link | null> {
+  const link = await prisma.link.findFirst({ where: { shortcode } });
+  return link;
+}
 
-    return prisma.link.findFirst({ where: { id: parseInt(id) } });
-  }
-
-  return null;
+export async function incrementClickCount(id: number) {
+  await prisma.link.update({
+    where: { id },
+    data: {
+      clicks: {
+        increment: 1,
+      },
+    },
+  });
 }
 
 export async function createLink(link: NewLink) {

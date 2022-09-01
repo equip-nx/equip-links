@@ -1,16 +1,17 @@
 import { json, redirect } from '@remix-run/node';
-import { PrismaClient } from '@prisma/client'
 import { useLoaderData } from '@remix-run/react';
 import type { LoaderFunction } from '@remix-run/node';
-
-const prisma = new PrismaClient()
+import { findLink, incrementClickCount } from '~/models/link.server';
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const link = await prisma.link.findFirst({
-    where: { shortcode: params.shortcode },
-  });
+  if (!params.shortcode) {
+    return null;
+  }
+
+  const link = await findLink(params.shortcode)
 
   if (link) {
+    await incrementClickCount(link.id);
     return redirect(link.longUrl);
   } else {
     return json({
