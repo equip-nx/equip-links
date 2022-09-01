@@ -1151,10 +1151,6 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
 
-.focus-within\:border-0:focus-within {
-  border-width: 0px;
-}
-
 .focus-within\:border-indigo-600:focus-within {
   --tw-border-opacity: 1;
   border-color: rgb(79 70 229 / var(--tw-border-opacity));

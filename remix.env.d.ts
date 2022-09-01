@@ -10,4 +10,5 @@ type Link = {
   longUrl: string;
   clicks: number;
   error?: string;
+  success?: boolean;
 };

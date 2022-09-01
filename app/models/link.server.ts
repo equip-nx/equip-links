@@ -7,6 +7,14 @@ const generateShortcode = (length?: number) => {
   return nanoid(length);
 };
 
+export async function findAllLinks() {
+  return await prisma.link.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+}
+
 export async function findLink(shortcode: string) {
   return await prisma.link.findFirst({ where: { shortcode } });
 }
@@ -27,7 +35,7 @@ export async function createLink({
   proposedShortcode,
 }: {
   longUrl: string;
-  proposedShortcode?: string;
+  proposedShortcode?: string | null;
 }) {
   let shortcode = proposedShortcode || generateShortcode(6);
 
@@ -44,7 +52,7 @@ export async function createLink({
     }
   }
 
-  const shortUrl = `${process.env.APP_URL}/${shortcode}`;
+  const shortUrl = `${process.env.APP_URL}/nk/${shortcode}`;
   const protocol = longUrl.match(/https?:\/\//);
 
   if (!protocol) {
