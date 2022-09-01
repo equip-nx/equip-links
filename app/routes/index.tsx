@@ -26,8 +26,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  console.log('here 1!');
-
   const form = await request.formData();
   const longUrl = form.get("longUrl");
   const proposedShortcode = form.get("shortcode");
@@ -39,16 +37,12 @@ export const action: ActionFunction = async ({ request }) => {
     });
   }
 
-  console.log('here 2!');
-
   const newLink = await createLink({
     // @ts-ignore
     longUrl,
     // @ts-ignore
     proposedShortcode
   });
-
-  console.log('here 3!');
 
   if (newLink.error) {
     return json({ success: false, error: newLink.error });
