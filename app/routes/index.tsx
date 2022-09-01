@@ -1,35 +1,45 @@
+import { json } from '@remix-run/node';
 import { useEffect, useRef } from 'react';
-import { useFetcher } from '@remix-run/react';
-import { json, redirect } from '@remix-run/node';
-import type { ActionFunction } from '@remix-run/node';
+import { useFetcher, useLoaderData } from '@remix-run/react';
+import type { ActionFunction, LoaderFunction } from '@remix-run/node';
 
+import Input from '~/components/input';
+import Label from '~/components/label';
+import Button from '~/components/button';
 import { createLink } from '~/models/link.server';
 
+export const loader: LoaderFunction = async () => {
+  return json({
+    appUrl: process.env.APP_URL
+  })
+}
+
 export const action: ActionFunction = async ({ request }) => {
-  const formData = await request.formData();
-  const longUrl = formData.get("longUrl");
-  const shortcode = formData.get("shortcode");
+  const form = await request.formData();
+  const longUrl = form.get("longUrl");
+  const shortcode = form.get("shortcode");
 
   if (!longUrl || !shortcode) {
-    return redirect('/');
+    return json({ success: false, error: 'You must fill out both fields.' });
   }
 
   // @ts-ignore
-  const newLink: any = await createLink({ shortcode, longUrl });
+  const newLink = await createLink({ shortcode, longUrl });
 
-  if (newLink) {
-    return json({ success: true, ...newLink });
-  } else {
+  if (newLink.error) {
     return json({ success: false, error: newLink.error });
+  } else {
+    return json({ success: true, ...newLink });
   }
 };
 
 export default function Index() {
   const link = useFetcher();
+  const data = useLoaderData();
   const form = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (link) {
+    if (link.data && !link.data.error) {
       form.current?.reset();
     }
   }, [link]);
@@ -38,28 +48,25 @@ export default function Index() {
     <main className="max-w-7xl mx-auto mt-20">
       <link.Form method="post" ref={form} className="flex flex-col gap-y-3">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Shortcode</label>
+          <Label htmlFor="shortcode" value="Shortcode" />
           <div className="relative mt-1 rounded-md shadow-sm">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <span className="text-gray-500 sm:text-sm tracking-wide">https://eqp.li/nk/</span>
+              <span className="text-gray-500 sm:text-sm tracking-wide">{data.appUrl}/</span>
             </div>
-            <input
-              type="text"
-              name="shortcode"
-              id="shortcode"
-              className="py-4 px-3 pl-32 block w-full rounded-md border border-gray-300 shadow-sm focus:border-gray-500 focus:ring-red-500 sm:text-sm"
-              placeholder="code"
+            <Input
+              type='text'
+              name='shortcode'
+              placeholder='code'
+              className='py-4 px-3 pl-32 block w-full rounded-md border border-gray-300 shadow-sm focus:border-gray-500 focus:ring-red-500 sm:text-sm'
             />
           </div>
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">URL</label>
-          <div className="mt-1">
-            <input type="text" name="longUrl" id="longUrl" className="py-4 px-3 block w-full rounded-md border border-gray-300 shadow-sm focus:border-gray-500 focus:ring-red-500 sm:text-sm" placeholder="google.com" />
-          </div>
+          <Label htmlFor="longUrl" value="URL" />
+          <Input type='text' name='longUrl' placeholder='google.com' />
         </div>
         <div>
-          <button type="submit" className="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Create Link</button>
+          <Button type="submit" label='Create Link' />
         </div>
       </link.Form>
 

@@ -1,16 +1,9 @@
-import type { Link } from '@prisma/client';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-type NewLink = {
-  longUrl: string;
-  shortcode: string;
-};
-
-export async function findLink(shortcode: string): Promise<Link | null> {
-  const link = await prisma.link.findFirst({ where: { shortcode } });
-  return link;
+export async function findLink(shortcode: string) {
+  return await prisma.link.findFirst({ where: { shortcode } });
 }
 
 export async function incrementClickCount(id: number) {
@@ -24,13 +17,16 @@ export async function incrementClickCount(id: number) {
   });
 }
 
-export async function createLink(link: NewLink) {
+export async function createLink(link: Link) {
   const currentLink = await prisma.link.findFirst({
     where: { shortcode: link.shortcode },
   });
 
   if (currentLink) {
-    return { error: 'A link with that shortcode already exists.' };
+    return {
+      ...currentLink,
+      error: 'A link with that shortcode already exists.',
+    };
   }
 
   const shortUrl = `${process.env.APP_URL}/${link.shortcode}`;
@@ -40,5 +36,6 @@ export async function createLink(link: NewLink) {
     link.longUrl = `https://${link.longUrl}`;
   }
 
-  return prisma.link.create({ data: { ...link, shortUrl } });
+  const newLink = prisma.link.create({ data: { ...link, shortUrl } });
+  return { ...newLink, error: null };
 }
