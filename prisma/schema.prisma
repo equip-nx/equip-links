@@ -16,7 +16,8 @@ model Link {
   id        Int      @default(autoincrement()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  shortcode String   @db.VarChar(255)
-  url       String   @db.VarChar(255)
+  shortcode String   @db.VarChar(255) @default("")
+  longUrl   String   @db.VarChar(255) @default("")
+  shortUrl  String   @db.VarChar(255) @default("")
   clicks    Int      @default(0)
 }
