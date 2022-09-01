@@ -26,6 +26,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  console.log('here 1!');
+
   const form = await request.formData();
   const longUrl = form.get("longUrl");
   const proposedShortcode = form.get("shortcode");
@@ -37,12 +39,16 @@ export const action: ActionFunction = async ({ request }) => {
     });
   }
 
+  console.log('here 2!');
+
   const newLink = await createLink({
     // @ts-ignore
     longUrl,
     // @ts-ignore
     proposedShortcode
   });
+
+  console.log('here 3!');
 
   if (newLink.error) {
     return json({ success: false, error: newLink.error });
@@ -66,8 +72,8 @@ export default function Index() {
   return (
     <div>
       <Header user={data.user} />
-      <main className="max-w-7xl mx-auto mt-8 px-2 sm:px-6 lg:px-8">
-        <form.Form method="post" ref={formRef} className="flex gap-x-3 items-center">
+      <main className="px-2 mx-auto mt-8 max-w-7xl sm:px-6 lg:px-8">
+        <form.Form method="post" ref={formRef} className="flex items-center gap-x-3">
           <div className="flex-1">
             <Input type='text' name='longUrl' label="Website" placeholder='google.com' />
           </div>
