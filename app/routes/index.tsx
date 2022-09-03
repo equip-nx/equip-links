@@ -26,6 +26,11 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  // @ts-ignore
+  let user: User = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/login",
+  });
+
   const form = await request.formData();
   const longUrl = form.get("longUrl");
   const proposedShortcode = form.get("shortcode");
@@ -38,6 +43,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   const newLink = await createLink({
+    userId: user.id,
     // @ts-ignore
     longUrl,
     // @ts-ignore

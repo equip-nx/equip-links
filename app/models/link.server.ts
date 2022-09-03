@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -31,9 +31,11 @@ export async function incrementClickCount(id: number) {
 }
 
 export async function createLink({
+  userId,
   longUrl,
   proposedShortcode,
 }: {
+  userId: number;
   longUrl: string;
   proposedShortcode?: string | null;
 }) {
@@ -60,7 +62,12 @@ export async function createLink({
   }
 
   const newLink = prisma.link.create({
-    data: { shortcode, longUrl, shortUrl },
+    data: {
+      shortcode,
+      longUrl,
+      shortUrl,
+      creator: { connect: { id: userId } },
+    },
   });
 
   return { ...newLink, error: null };
