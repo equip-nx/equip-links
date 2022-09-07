@@ -26,20 +26,15 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  console.log('ActionFunction');
-
   // @ts-ignore
   let user: User = await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
   });
 
-  console.log('ActionFunction 2', user.name);
-
   const form = await request.formData();
   const longUrl = form.get("longUrl");
   const proposedShortcode = form.get("shortcode");
 
-  console.log('ActionFunction 3', user.name);
 
   if (!longUrl) {
     return json({
@@ -47,8 +42,6 @@ export const action: ActionFunction = async ({ request }) => {
       error: 'You must fill out the url.'
     });
   }
-
-  console.log('ActionFunction 4');
 
   try {
     const newLink = await createLink({
@@ -60,16 +53,13 @@ export const action: ActionFunction = async ({ request }) => {
     });
 
     if (newLink.error) {
-      console.log('ActionFunction 6');
       return json({ success: false, error: newLink.error });
     } else {
-      console.log('ActionFunction 7');
       const links = await findAllLinks();
-      console.log('ActionFunction 8', links);
       return json({ success: true, links });
     }
   } catch (error: any) {
-    console.log('Error!: ', { error });
+    console.error(error)
     return json({ success: false, error: error });
   }
 };
