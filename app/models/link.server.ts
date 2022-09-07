@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { PrismaClient, User } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -39,14 +39,24 @@ export async function createLink({
   longUrl: string;
   proposedShortcode?: string | null;
 }) {
+  console.log('createLink 1');
+
   let shortcode = proposedShortcode || generateShortcode(6);
 
+  console.log('createLink 2', shortcode);
+
   if (proposedShortcode) {
+    console.log('proposedShortcode 3', proposedShortcode);
+
     const currentLink = await prisma.link.findFirst({
       where: { shortcode: proposedShortcode },
     });
 
+    console.log('currentLink 4', currentLink?.shortUrl);
+
     if (currentLink) {
+      console.log('currentLink 5', currentLink?.shortUrl);
+
       return {
         ...currentLink,
         error: 'A link with that shortcode already exists.',
@@ -54,12 +64,19 @@ export async function createLink({
     }
   }
 
+  console.log('createLink 6');
+
   const shortUrl = `${process.env.APP_URL}/nk/${shortcode}`;
   const protocol = longUrl.match(/https?:\/\//);
 
+  console.log('createLink 7');
+
   if (!protocol) {
     longUrl = `https://${longUrl}`;
+    console.log('protocol 8', longUrl);
   }
+
+  console.log('createLink 9');
 
   const newLink = prisma.link.create({
     data: {
@@ -69,6 +86,8 @@ export async function createLink({
       creator: { connect: { id: userId } },
     },
   });
+
+  console.log('createLink 10');
 
   return { ...newLink, error: null };
 }

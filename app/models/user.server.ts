@@ -17,7 +17,16 @@ export async function findOrCreate(userProfile: User) {
   });
 
   if (user) {
-    return user;
+    const updateUser = await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        picture: user.picture,
+      },
+    });
+
+    return updateUser;
   }
 
   return await prisma.user.create({

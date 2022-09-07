@@ -26,14 +26,20 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  console.log('ActionFunction');
+
   // @ts-ignore
   let user: User = await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
   });
 
+  console.log('ActionFunction 2', user.name);
+
   const form = await request.formData();
   const longUrl = form.get("longUrl");
   const proposedShortcode = form.get("shortcode");
+
+  console.log('ActionFunction 3', user.name);
 
   if (!longUrl) {
     return json({
@@ -42,19 +48,29 @@ export const action: ActionFunction = async ({ request }) => {
     });
   }
 
-  const newLink = await createLink({
-    userId: user.id,
-    // @ts-ignore
-    longUrl,
-    // @ts-ignore
-    proposedShortcode
-  });
+  console.log('ActionFunction 4');
 
-  if (newLink.error) {
-    return json({ success: false, error: newLink.error });
-  } else {
-    const links = await findAllLinks();
-    return json({ success: true, links });
+  try {
+    const newLink = await createLink({
+      userId: user.id,
+      // @ts-ignore
+      longUrl,
+      // @ts-ignore
+      proposedShortcode
+    });
+
+    if (newLink.error) {
+      console.log('ActionFunction 6');
+      return json({ success: false, error: newLink.error });
+    } else {
+      console.log('ActionFunction 7');
+      const links = await findAllLinks();
+      console.log('ActionFunction 8', links);
+      return json({ success: true, links });
+    }
+  } catch (error: any) {
+    console.log('Error!: ', { error });
+    return json({ success: false, error: error });
   }
 };
 
