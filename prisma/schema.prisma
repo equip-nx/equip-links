@@ -7,12 +7,14 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url = env("DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
 model Link {
+  @@map("links")
+
   id        Int      @default(autoincrement()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -25,6 +27,8 @@ model Link {
 }
 
 model User {
+  @@map("users")
+
   id        Int      @default(autoincrement()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

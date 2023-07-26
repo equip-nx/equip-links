@@ -1213,10 +1213,10 @@
   resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-4.3.0-32.c875e43600dfe042452e0b868f7a48b817b9640b.tgz#a564dd6fb6f25405fe06164989ebd8a1e4bb3508"
   integrity sha512-8yWpXkQRmiSfsi2Wb/ZS5D3RFbeu/btL9Pm/gdF4phB0Lo5KGsDFMxFMgaD64mwED2nHc8ZaEJg/+4Jymb9Znw==
 
-"@prisma/engines@4.3.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-4.3.0.tgz#097784f5d044d4a364652420d3c4d6d4c0baa909"
-  integrity sha512-JAyU7+QEpLkVtgVMYBSPQt9sUcgFqA/MdD4mK7yx+ZyDfHQlP+nT1rmqFPZ3MofR0mAha7nr3rx0ZNN46gLp9Q==
+"@prisma/engines@5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-5.0.0.tgz#5249650eabe77c458c90f2be97d8210353c2e22e"
+  integrity sha512-kyT/8fd0OpWmhAU5YnY7eP31brW1q1YrTGoblWrhQJDiN/1K+Z8S1kylcmtjqx5wsUGcP1HBWutayA/jtyt+sg==
 
 "@remix-run/dev@^1.7.0":
   version "1.7.0"
@@ -2245,9 +2245,9 @@ camelcase-css@^2.0.1:
   integrity sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==
 
 caniuse-lite@^1.0.30001370, caniuse-lite@^1.0.30001373:
-  version "1.0.30001387"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001387.tgz#90d2b9bdfcc3ab9a5b9addee00a25ef86c9e2e1e"
-  integrity sha512-fKDH0F1KOJvR+mWSOvhj8lVRr/Q/mc5u5nabU2vi1/sgvlSqEsE8dOq0Hy/BqVbDkCYQPRRHB1WRjW6PGB/7PA==
+  version "1.0.30001517"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001517.tgz"
+  integrity sha512-Vdhm5S11DaFVLlyiKu4hiUTkpZu+y1KA/rZZqVQfOD5YdDT/eQKlkt7NaE0WGOFgX32diqt9MiP9CAiFeRklaA==
 
 chalk@^2.0.0:
   version "2.4.2"
@@ -5872,12 +5872,12 @@ pretty-ms@7.0.1, pretty-ms@^7.0.1:
   dependencies:
     parse-ms "^2.1.0"
 
-prisma@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/prisma/-/prisma-4.3.0.tgz#2c989be1bc6298f28bb4db40521dabec46e7a388"
-  integrity sha512-Ii588H5IsbSun5BwpNQwrayrHKecFEZ6wDoJ7nr2IsqlMblmkA1dextGBObsG9tg+aIVhTrNa7OAbhbvEfqhdQ==
+prisma@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/prisma/-/prisma-5.0.0.tgz#f6571c46dc2478172cb7bc1bb62d74026a2c2630"
+  integrity sha512-KYWk83Fhi1FH59jSpavAYTt2eoMVW9YKgu8ci0kuUnt6Dup5Qy47pcB4/TLmiPAbhGrxxSz7gsSnJcCmkyPANA==
   dependencies:
-    "@prisma/engines" "4.3.0"
+    "@prisma/engines" "5.0.0"
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
