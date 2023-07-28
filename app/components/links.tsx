@@ -91,7 +91,7 @@ export default function Links({ links }: { links: Link[] }) {
                         </svg>
                       </span>
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">{link.clicks}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">{link.visits}</td>
                   </tr>
                 ))}
               </tbody>

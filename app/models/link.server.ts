@@ -23,7 +23,7 @@ export async function incrementClickCount(id: number) {
   await prisma.link.update({
     where: { id },
     data: {
-      clicks: {
+      visits: {
         increment: 1,
       },
     },

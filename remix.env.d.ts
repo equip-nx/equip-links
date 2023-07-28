@@ -8,7 +8,7 @@ type Link = {
   shortcode: string;
   shortUrl: string;
   longUrl: string;
-  clicks: number;
+  visits: number;
   error?: string;
   success?: boolean;
 };
