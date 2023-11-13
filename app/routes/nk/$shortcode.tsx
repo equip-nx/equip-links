@@ -14,9 +14,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     await incrementClickCount(link.id);
     return redirect(link.longUrl);
   } else {
-    return json({
-      error: 'Link not found...'
-    })
+    return redirect('https://equipnx.com');
   }
 };
 
