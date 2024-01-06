@@ -23,20 +23,20 @@ export default function Links({ links }: { links: Link[] }) {
       <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
           <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-300">
+            <table className="min-w-full divide-y divide-gray-300 px-4">
               <thead className="bg-gray-50">
                 <tr>
                   <th
                     scope="col"
-                    className="py-3 pl-4 pr-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 sm:pl-6"
+                    className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
                   >
                     Shortcode
                   </th>
                   <th
                     scope="col"
-                    className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                    className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wide text-gray-500"
                   >
-                    URL
+                    Visits
                   </th>
                   <th
                     scope="col"
@@ -48,23 +48,23 @@ export default function Links({ links }: { links: Link[] }) {
                     scope="col"
                     className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
                   >
-                    Last Visit
+                    URL
                   </th>
                   <th
                     scope="col"
-                    className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wide text-gray-500"
+                    className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
                   >
-                    Visits
+                    Last Visit
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
                 {links.map((link) => (
                   <tr key={link.id}>
-                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-900 font-medium">
                       {link.shortcode}
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{link.longUrl}</td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">{link.visits}</td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 flex items-center gap-x-2">
                       <span title="Copy Link" className="cursor-pointer text-gray-500" onClick={() => copyToClipboard(link.shortUrl)}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
@@ -80,10 +80,10 @@ export default function Links({ links }: { links: Link[] }) {
                       </span>
                       {link.shortUrl}
                     </td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{link.longUrl}</td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {new Date(link.updatedAt).toLocaleDateString('en-us', { weekday: "long", year: "numeric", month: "short", day: "numeric" })}
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">{link.visits}</td>
                   </tr>
                 ))}
               </tbody>
