@@ -79,9 +79,9 @@ export default function Index() {
     <div>
       <Header user={data.user} />
       <main className="px-2 mx-auto mt-8 max-w-7xl sm:px-6 lg:px-8">
-        <form.Form method="post" ref={formRef} className="flex items-center gap-x-3">
+        <form.Form method="post" ref={formRef} className="flex-col space-y-3 items-center sm:flex sm:flex-row sm:gap-x-3 sm:space-y-0">
           <div className="flex-1">
-            <Input type='text' name='longUrl' label="Website" placeholder='google.com' />
+            <Input type='text' name='longUrl' label="Website" placeholder='equipnx.com' />
           </div>
           <div>
             <Input type='text' name='shortcode' label="Shortcode (optional)" placeholder='code' />
