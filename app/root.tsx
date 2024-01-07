@@ -9,6 +9,7 @@ import {
 } from "@remix-run/react";
 
 import styles from "./styles/app.css"
+import 'react-tooltip/dist/react-tooltip.css'
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }]
