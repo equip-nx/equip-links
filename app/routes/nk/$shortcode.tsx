@@ -1,10 +1,14 @@
-import { json, redirect } from '@remix-run/node';
+import { redirect } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import type { LoaderFunction } from '@remix-run/node';
 import { findLink, incrementClickCount } from '~/models/link.server';
 
 export const loader: LoaderFunction = async ({ params }) => {
   if (!params.shortcode) {
+    return null;
+  }
+
+  if (params.source) {
     return null;
   }
 

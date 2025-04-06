@@ -17,7 +17,7 @@ export function links() {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Equip URL Shortener",
+  title: "eqp.li/nk",
   viewport: "width=device-width,initial-scale=1",
 });
 

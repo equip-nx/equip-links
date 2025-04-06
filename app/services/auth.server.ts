@@ -17,11 +17,15 @@ let googleStrategy = new GoogleStrategy(
     const { name, email, hd, picture } = profile._json;
     const allowedDomainsList = process.env.GOOGLE_ALLOW_DOMAINS;
 
+    console.log('Trenton', allowedDomainsList);
+
     if (allowedDomainsList) {
       if (!allowedDomainsList.split(',').includes(hd)) {
         return null;
       }
     }
+
+    console.log('Trenton 2');
 
     return findOrCreate({
       name,

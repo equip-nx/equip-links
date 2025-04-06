@@ -30,6 +30,27 @@ export async function incrementClickCount(id: number) {
   });
 }
 
+export async function incrementVisitCount(linkId: number, source: string) {
+  await prisma.linkVisit.upsert({
+    where: {
+      linkId_source: {
+        linkId,
+        source,
+      },
+    },
+    update: {
+      visits: {
+        increment: 1,
+      },
+    },
+    create: {
+      linkId,
+      source,
+      visits: 1,
+    },
+  });
+}
+
 export async function createLink({
   userId,
   longUrl,

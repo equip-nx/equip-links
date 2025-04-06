@@ -24,6 +24,8 @@ model Link {
   visits    Int      @default(0)
   creator   User     @relation(fields: [creatorId], references: [id])
   creatorId Int      @default(1)
+
+  linkVists LinkVisit[]
 }
 
 model User {
@@ -37,4 +39,18 @@ model User {
   picture   String   @db.VarChar(255)
   domain    String   @db.VarChar(255)
   links     Link[]
+}
+
+model LinkVisit {
+  @@map("link_visits")
+
+  id        Int    @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  link      Link   @relation(fields: [linkId], references: [id])
+  linkId    Int
+  source    String
+  visits Int   @default(0)
+
+  @@unique([linkId, source])
 }

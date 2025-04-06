@@ -38,13 +38,13 @@ export default function Header({ user }: { user: User }) {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <img
-                    className="block h-8 w-auto lg:hidden"
-                    src={require('../../public/logo-mark.svg')}
+                    className="block h-5 w-auto lg:hidden"
+                    src={require('../../public/logo-horizontal-light.svg')}
                     alt="Eqp.li/nk"
                   />
                   <img
-                    className="hidden h-8 w-auto lg:block"
-                    src={require('../../public/logo-mark.svg')}
+                    className="hidden h-5 w-auto lg:block"
+                    src={require('../../public/logo-horizontal-light.svg')}
                     alt="Eqp.li/nk"
                   />
                 </div>
