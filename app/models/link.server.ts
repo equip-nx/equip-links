@@ -9,6 +9,9 @@ const generateShortcode = (length?: number) => {
 
 export async function findAllLinks() {
   return await prisma.link.findMany({
+    include: {
+      linkVisits: true,
+    },
     orderBy: {
       createdAt: 'desc',
     },

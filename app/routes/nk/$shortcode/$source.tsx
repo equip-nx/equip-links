@@ -1,14 +1,9 @@
 import { redirect } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import type { LoaderFunction } from '@remix-run/node';
-import { findLink, incrementClickCount, incrementVisitCount } from '~/models/link.server';
 
-const SOURCES = {
-  x: { source: 'x', medium: 'social' },
-  f: { source: 'facebook', medium: 'social' },
-  l: { source: 'linkedin', medium: 'social' },
-  i: { source: 'instagram', medium: 'social' }
-}
+import { SOURCES } from '~/lib/sources';
+import { findLink, incrementClickCount, incrementVisitCount } from '~/models/link.server';
 
 function constructUrlWithUtm(link: any, sourceData: { source: string; medium: string }, useDefault: boolean): string {
   const createdAt = new Date(link.createdAt);

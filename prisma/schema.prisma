@@ -25,7 +25,7 @@ model Link {
   creator   User     @relation(fields: [creatorId], references: [id])
   creatorId Int      @default(1)
 
-  linkVists LinkVisit[]
+  linkVisits LinkVisit[]
 }
 
 model User {
