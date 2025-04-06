@@ -8,6 +8,8 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import { Toaster } from "~/components/ui/toaster"
+
 import styles from "./styles/app.css"
 import 'react-tooltip/dist/react-tooltip.css'
 
@@ -30,6 +32,7 @@ export default function App() {
       </head>
       <body className="bg-gray-100">
         <Outlet />
+        <Toaster />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

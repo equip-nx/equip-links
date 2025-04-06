@@ -1,12 +1,16 @@
 import { Link } from 'remix.env';
 import { useState } from 'react';
 import { Tooltip } from 'react-tooltip';
+import { CalendarIcon } from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
+
 
 import { Button } from './ui/button';
 import { SOURCES } from '~/lib/sources';
+import { useToast } from "~/hooks/use-toast"
 
 import Copy from './icons/copy';
+import Source from './icons/source';
 import Twitter from './icons/twitter';
 import LinkedIn from './icons/linkedin';
 import Facebook from './icons/facebook';
@@ -14,17 +18,28 @@ import Instagram from './icons/instagram';
 
 import { Separator } from './ui/separator';
 import { DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose, DrawerTrigger, Drawer } from './ui/drawer';
-import Source from './icons/source';
-import { CalendarIcon } from 'lucide-react';
 
 export default function Links({ links }: { links: Link[] }) {
+  const { toast } = useToast()
+
   const [detailsOpen, setDetailsOpen] = useState<boolean>(false);
   const [selectedLink, setSelectedLink] = useState<Link | null>();
 
   const copyToClipboard = (url: string) => {
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+      toast({
+        title: "Link copied to clipboard!",
+        description: "Ensure you're using the link with the correct source.",
+      })
+
       return navigator.clipboard.writeText(url);
     }
+
+    toast({
+      variant: "destructive",
+      title: "Link could not be copied!",
+      description: "Your browser does not have the ability to copy text."
+    })
 
     return Promise.reject('The Clipboard API is not available.');
   };
