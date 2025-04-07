@@ -6,14 +6,11 @@ import { SOURCES } from '~/lib/sources';
 import { findLink, incrementClickCount, incrementVisitCount } from '~/models/link.server';
 
 function constructUrlWithUtm(link: any, sourceData: { source: string; medium: string }, useDefault: boolean): string {
-  const createdAt = new Date(link.createdAt);
-  const formattedDate = `${createdAt.getFullYear()}${(createdAt.getMonth() + 1).toString().padStart(2, '0')}${createdAt.getDate().toString().padStart(2, '0')}`;
-
   const utmSource = useDefault ? 'default_source' : sourceData.source;
   const utmMedium = useDefault ? 'default_medium' : sourceData.medium;
 
   const separator = link.longUrl.includes('?') ? '&' : '?';
-  return `${link.longUrl}${separator}ref=equip&utm_source=${utmSource}&utm_medium=${utmMedium}&utm_content=${formattedDate}`;
+  return `${link.longUrl}${separator}ref=equip&utm_source=${utmSource}&utm_medium=${utmMedium}&utm_content=${link.shortcode}`;
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
